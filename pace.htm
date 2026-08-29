@@ -1,57 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
-    span.s1 {font-kerning: none}
-  </style>
-</head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html&gt;&lt;head&gt;&lt;link rel="apple-touch-icon" href="http://www.evers.no/rgt/piggy.png"&gt;&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;body style="background-color:powderblue;"&gt;&lt;meta name = "viewport" content="width=200"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;form id="calc"&gt;&lt;table border=1&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;tr&gt;&lt;td align="right"&gt;20&lt;input id="20k" type="text" pattern="\d*" size="3" oninput="myFunction()" autofocus&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;1000&lt;input id="1000k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;&lt;b&gt;&lt;output id="1000l"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;tr&gt;&lt;td align="right"&gt;10&lt;input id="10k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;500&lt;input id="500k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;&lt;b&gt;&lt;output id="500l"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;tr&gt;&lt;td align="right"&gt;5&lt;input id="5k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;200&lt;input id="200k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;&lt;b&gt;&lt;output id="200l"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;tr&gt;&lt;td align="right"&gt;1&lt;input id="1k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;td align="right"&gt;100&lt;input id="100k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;td align="right"&gt;&lt;b&gt;&lt;output id="100l"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;tr&gt;&lt;td align="right"&gt;&lt;input type="button" onclick="myReset()" value="RGT5"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;td align="right"&gt;50&lt;input id="50k" type="text" pattern="\d*" size="3" oninput="myFunction()"&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;td align="right"&gt;&lt;b&gt;&lt;output id="50l"&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;tr&gt;&lt;td align="right"&gt;&lt;font color = "red"&gt;&lt;b&gt;&lt;output id="mynt" type="text" disabled&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;&lt;font color = "red"&gt;&lt;b&gt;&lt;output id="sedler" type="text"disabled&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;td align="right"&gt;&lt;font color = "green"&gt;&lt;b&gt;&lt;output id="sum" type="text" disabled&gt;&lt;/td&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">               </span>&lt;/font&gt;&lt;/table&gt;&lt;/form&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>function myFunction() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var a = Number(document.getElementById("1k").value);var b = Number(document.getElementById("5k").value)*5;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var c = Number(document.getElementById("10k").value)*10;var d = Number(document.getElementById("20k").value)*20;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var e = Number(document.getElementById("50k").value)*50;var f = Number(document.getElementById("100k").value)*100;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var g = Number(document.getElementById("200k").value)*200;var h = Number(document.getElementById("500k").value)*500;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>var i = Number(document.getElementById("1000k").value)*1000;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("sum").innerHTML = a+b+c+d+e+f+g+h+i;document.getElementById("mynt").innerHTML = a+b+c+d;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("sedler").innerHTML = e+f+g+h+i;document.getElementById("50l").innerHTML = e;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("100l").innerHTML = f;document.getElementById("200l").innerHTML = g;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("500l").innerHTML = h;document.getElementById("1000l").innerHTML = i;}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>function myReset() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("calc").reset();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("sum").innerHTML = "";document.getElementById("mynt").innerHTML = "";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("sedler").innerHTML = "";document.getElementById("50l").innerHTML = "";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("100l").innerHTML = "";document.getElementById("200l").innerHTML = "";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.getElementById("500l").innerHTML = "";document.getElementById("1000l").innerHTML = "";}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</span></p>
-</body>
-</html>
+<!DOCTYPE html>
+<html><head><link rel="apple-touch-icon" href="http://www.evers.no/rgt/piggy.png"></head>
+      <body style="background-color:powderblue;"><meta name = "viewport" content="width=200">
+      <form id="calc"><table border=1>
+            <tr><td align="right">20<input id="20k" type="text" pattern="\d*" size="3" oninput="myFunction()" autofocus></td>
+               <td align="right">1000<input id="1000k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+               <td align="right"><b><output id="1000l"></td>
+            <tr><td align="right">10<input id="10k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+               <td align="right">500<input id="500k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+               <td align="right"><b><output id="500l"></td>
+            <tr><td align="right">5<input id="5k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+               <td align="right">200<input id="200k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+               <td align="right"><b><output id="200l"></td>
+            <tr><td align="right">1<input id="1k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+              <td align="right">100<input id="100k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+              <td align="right"><b><output id="100l"></td>
+            <tr><td align="right"><input type="button" onclick="myReset()" value="RGT5"></td>
+              <td align="right">50<input id="50k" type="text" pattern="\d*" size="3" oninput="myFunction()"></td>
+              <td align="right"><b><output id="50l"</td>
+            <tr><td align="right"><font color = "red"><b><output id="mynt" type="text" disabled></td>
+               <td align="right"><font color = "red"><b><output id="sedler" type="text"disabled></td>
+               <td align="right"><font color = "green"><b><output id="sum" type="text" disabled></td>
+               </font></table></form>
+      <script>
+      function myFunction() {
+        var a = Number(document.getElementById("1k").value);var b = Number(document.getElementById("5k").value)*5;
+        var c = Number(document.getElementById("10k").value)*10;var d = Number(document.getElementById("20k").value)*20;
+        var e = Number(document.getElementById("50k").value)*50;var f = Number(document.getElementById("100k").value)*100;
+        var g = Number(document.getElementById("200k").value)*200;var h = Number(document.getElementById("500k").value)*500;
+        var i = Number(document.getElementById("1000k").value)*1000;
+          document.getElementById("sum").innerHTML = a+b+c+d+e+f+g+h+i;document.getElementById("mynt").innerHTML = a+b+c+d;
+          document.getElementById("sedler").innerHTML = e+f+g+h+i;document.getElementById("50l").innerHTML = e;
+          document.getElementById("100l").innerHTML = f;document.getElementById("200l").innerHTML = g;
+          document.getElementById("500l").innerHTML = h;document.getElementById("1000l").innerHTML = i;}
+      function myReset() {
+          document.getElementById("calc").reset();
+          document.getElementById("sum").innerHTML = "";document.getElementById("mynt").innerHTML = "";
+          document.getElementById("sedler").innerHTML = "";document.getElementById("50l").innerHTML = "";
+          document.getElementById("100l").innerHTML = "";document.getElementById("200l").innerHTML = "";
+          document.getElementById("500l").innerHTML = "";document.getElementById("1000l").innerHTML = "";}
+      </script></body></html>
