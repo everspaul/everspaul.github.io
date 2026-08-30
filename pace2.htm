@@ -116,18 +116,18 @@ i need a html code that converts my running pace (minutes and seconds per km) to
     <div class="input-group-pace">
         <div class="input-field">
             <label for="minutes">Pace Minutes / km</label>
-            <input type="number" id="minutes" min="0" max="59" placeholder="5" value="5" onchange="convertPace()">
+            <input type="number" id="minutes" min="0" max="59" placeholder="5" value="5" oninput ="convertPace()" >
         </div>
         <div class="input-field">
             <label for="seconds">Seconds</label>
-            <input type="number" id="seconds" min="0" max="59" placeholder="0" value="0" onchange="convertPace()">
+            <input type="number" id="seconds" min="0" max="59" placeholder="0" value="0" oninput ="convertPace()">
         </div>
     </div>
 
     <div class="input-group-speed">
         <div class="input-field">
             <label for="minutes">Speed km / hour</label>
-            <input type="number" id="speed" min="1" max="40" value="1" onchange="convertSpeed()" oninput ="convertSpeed()">
+            <input type="number" id="speed" min="1" max="40" value="1" oninput ="convertSpeed()">
         </div>
     </div>
 
