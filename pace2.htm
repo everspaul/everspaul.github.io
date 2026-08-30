@@ -41,11 +41,6 @@ i need a html code that converts my running pace (minutes and seconds per km) to
             gap: 10px;
             margin-bottom: 20px;
         }
-        .input-group-speed {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
         .input-field {
             flex: 1;
             display: flex;
@@ -113,23 +108,21 @@ i need a html code that converts my running pace (minutes and seconds per km) to
 <div class="container">
     <h3>https://everspaul.github.io/pace2.htm</h3>
 
-
-
     <div class="input-group-pace">
         <div class="input-field">
             <label for="minutes">Pace Minutes / km</label>
-            <input type="number" id="minutes" min="0" max="59" placeholder="5" value="5" oninput ="convertPace()" >
+            <input type="number" id="minutes" min="0" max="59"	 value="5" oninput ="convertPace()" >
         </div>
         <div class="input-field">
             <label for="seconds">Seconds</label>
-            <input type="number" id="seconds" min="0" max="59" placeholder="0" value="0" oninput ="convertPace()">
+            <input type="number" id="seconds" min="0" max="59" value="0" oninput ="convertPace()">
         </div>
     </div>
 
-    <div class="input-group-speed">
+    <div class="input-group-pace">
         <div class="input-field">
-            <label for="minutes">Speed km / hour</label>
-            <input type="number" id="speed" min="1" max="40" value="1" oninput ="convertSpeed()">
+            <label for="for">Speed km / hour</label>
+            <input type="number" id="speed" min="1" max="40" value="0" oninput ="convertSpeed()">
         </div>
     </div>
 
@@ -138,7 +131,7 @@ i need a html code that converts my running pace (minutes and seconds per km) to
 
     <div class="results">
         <div class="result-row">
-            <span class="distance">1000 m:</span>
+            <span class="distance">Pace 1000 m:</span>
             <span class="time" id="res1000">5:00</span>
         </div>
         <div class="result-row">
@@ -181,6 +174,18 @@ i need a html code that converts my running pace (minutes and seconds per km) to
         return `${secs}s`;
     }
 
+    function SpeedToPace(totalSeconds) {
+        const mins = Math.floor(totalSeconds / 60);
+        const secs = Math.floor(totalSeconds % 60);
+        // Pad seconds with a leading zero if they are less than 10
+        const formattedSecs = secs < 10 ? '0' + secs : secs;
+        
+        if (mins > 0) {
+            return `${mins}:${formattedSecs}`;
+        }
+        return `${secs}s`;
+    }
+
     function CalculateAndDisplay(totalSecondsPerKm) {
         // Calculate split times based on proportions of a kilometer
         const time1000 = totalSecondsPerKm 
@@ -191,6 +196,7 @@ i need a html code that converts my running pace (minutes and seconds per km) to
         const time50 = totalSecondsPerKm * (50 / 1000);
 
         // Display formatted results
+
         document.getElementById('res1000').innerText = formatTime(time1000);
         document.getElementById('res800').innerText = formatTime(time800);
         document.getElementById('res400').innerText = formatTime(time400);
@@ -214,7 +220,6 @@ i need a html code that converts my running pace (minutes and seconds per km) to
         }
 
 	CalculateAndDisplay(totalSecondsPerKm)
-
     }
 
     function convertSpeed() {
