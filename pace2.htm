@@ -88,6 +88,13 @@ i need a html code that converts my running pace (minutes and seconds per km) to
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
         }
+        .result-vo2max {
+            display: flex;
+	    justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+	    background-color: #ebf095;
+        }
         .result-row:last-child {
             border-bottom: none;
         }
@@ -153,7 +160,10 @@ i need a html code that converts my running pace (minutes and seconds per km) to
             <span class="distance">50 m:</span>
             <span class="time" id="res50">0:15</span>
         </div>
-
+        <div class="result-vo2max">
+            <span class="distance">VO2max:</span>
+            <span class="time" id="VO2max">42 (12min)</span>
+        </div>
 
     </div>
 </div>
@@ -193,6 +203,7 @@ i need a html code that converts my running pace (minutes and seconds per km) to
         const time200 = totalSecondsPerKm * (200 / 1000);
         const time100 = totalSecondsPerKm * (100 / 1000);
         const time50 = totalSecondsPerKm * (50 / 1000);
+        const vo2max = parseInt((((720 / totalSecondsPerKm) * 1000) - 504.9) / 44.73)
 
         // Display formatted results
 
@@ -202,6 +213,7 @@ i need a html code that converts my running pace (minutes and seconds per km) to
         document.getElementById('res200').innerText = formatTime(time200);
         document.getElementById('res100').innerText = formatTime(time100);
         document.getElementById('res50').innerText = formatTime(time50);
+        document.getElementById('VO2max').innerText = vo2max + ' (12min)';
 
     }
 
@@ -229,7 +241,6 @@ i need a html code that converts my running pace (minutes and seconds per km) to
         const totalSecondsPerKm = (3600 / minInput);
 
 	CalculateAndDisplay(totalSecondsPerKm)
-
     }
 </script>
 
