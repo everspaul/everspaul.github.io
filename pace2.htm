@@ -28,7 +28,7 @@ i need a html code that converts my running pace (minutes and seconds per km) to
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 4);
             max-width: 400px;
-            width: 50%;
+            width: 60%;
         }
         h3 {
             margin-top: 0;
@@ -109,18 +109,18 @@ i need a html code that converts my running pace (minutes and seconds per km) to
 
     <div class="input-group-pace">
         <div class="input-field">
-            <label for="minutes">Pace Minutes / km</label>
+            <label for="minutes">Pace min/km</label>
             <input type="number" id="minutes" min="0" max="59"	 value="5" oninput ="convertPace()" >
         </div>
         <div class="input-field">
-            <label for="seconds">Seconds</label>
+            <label for="seconds">sec</label>
             <input type="number" id="seconds" min="0" max="59" value="0" oninput ="convertPace()">
         </div>
     </div>
 
     <div class="input-group-pace">
         <div class="input-field">
-            <label for="for">Speed km / hour</label>
+            <label for="for">Speed km/h</label>
             <input type="number" id="speed" min="1" max="40" value="0" oninput ="convertSpeed()">
         </div>
     </div>
