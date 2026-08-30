@@ -1,4 +1,9 @@
  <!DOCTYPE html>
+
+<!-- 
+i need a html code that converts my running pace (minutes and seconds per km) to minutes and seconds per 400 m, per 200 m and 100 m
+-->
+
 <html lang="en">
 <head>
 
@@ -24,12 +29,17 @@
             max-width: 400px;
             width: 100%;
         }
-        h2 {
+        h3 {
             margin-top: 0;
             color: #1a73e8;
             text-align: center;
         }
-        .input-group {
+        .input-group-pace {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .input-group-speed {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
@@ -99,46 +109,64 @@
 <body>
 
 <div class="container">
-    <h2>Pace Converter</h2>
+    <h3>https://everspaul.github.io/pace2.htm</h3>
 
-    <h3>i need a html code that converts my running pace (minutes and seconds per km) to minutes and seconds per 400 m, per 200 m and 100 m</h3>
 
-    <div class="input-group">
+
+    <div class="input-group-pace">
         <div class="input-field">
-            <label for="minutes">Minutes / km</label>
+            <label for="minutes">Pace Minutes / km</label>
             <input type="number" id="minutes" min="0" max="59" placeholder="5" value="5" onchange="convertPace()">
         </div>
         <div class="input-field">
-            <label for="seconds">Seconds / km</label>
+            <label for="seconds">Seconds</label>
             <input type="number" id="seconds" min="0" max="59" placeholder="0" value="0" onchange="convertPace()">
         </div>
     </div>
 
-    <button onclick="convertPace()">Convert Pace</button>
+    <div class="input-group-speed">
+        <div class="input-field">
+            <label for="minutes">Speed km / hour</label>
+            <input type="number" id="speed" min="0" max="40" onchange="convertSpeed()">
+        </div>
+    </div>
+
+
+<!--     <button onclick="convertPace()">Convert</button> -->
 
     <div class="results">
         <div class="result-row">
-            <span class="distance">400 meters:</span>
+            <span class="distance">1000 m:</span>
+            <span class="time" id="res1000">5:00</span>
+        </div>
+        <div class="result-row">
+            <span class="distance">800 m:</span>
+            <span class="time" id="res800">4:00</span>
+        </div>
+        <div class="result-row">
+            <span class="distance">400 m:</span>
             <span class="time" id="res400">2:00</span>
         </div>
         <div class="result-row">
-            <span class="distance">200 meters:</span>
+            <span class="distance">200 m:</span>
             <span class="time" id="res200">1:00</span>
         </div>
         <div class="result-row">
-            <span class="distance">100 meters:</span>
+            <span class="distance">100 m:</span>
             <span class="time" id="res100">0:30</span>
         </div>
         <div class="result-row">
-            <span class="distance">50 meters:</span>
+            <span class="distance">50 m:</span>
             <span class="time" id="res50">0:15</span>
         </div>
+
+
     </div>
 </div>
 
 
-
 <script>
+
     function formatTime(totalSeconds) {
         const mins = Math.floor(totalSeconds / 60);
         const secs = Math.floor(totalSeconds % 60);
@@ -151,12 +179,31 @@
         return `${secs}s`;
     }
 
+    function CalculateAndDisplay(totalSecondsPerKm) {
+        // Calculate split times based on proportions of a kilometer
+        const time1000 = totalSecondsPerKm ;
+        const time800 = totalSecondsPerKm * (800 / 1000);
+        const time400 = totalSecondsPerKm * (400 / 1000);
+        const time200 = totalSecondsPerKm * (200 / 1000);
+        const time100 = totalSecondsPerKm * (100 / 1000);
+        const time50 = totalSecondsPerKm * (50 / 1000);
+
+        // Display formatted results
+        document.getElementById('res1000').innerText = formatTime(time1000);
+        document.getElementById('res800').innerText = formatTime(time800);
+        document.getElementById('res400').innerText = formatTime(time400);
+        document.getElementById('res200').innerText = formatTime(time200);
+        document.getElementById('res100').innerText = formatTime(time100);
+        document.getElementById('res50').innerText = formatTime(time50);
+
+    }
+
     function convertPace() {
         // Get input values
         const minInput = parseInt(document.getElementById('minutes').value) || 0;
         const secInput = parseInt(document.getElementById('seconds').value) || 0;
 
-        // Calculate total seconds per 1000m (1 km)
+        // Calculate total seconds per 1000 m (1 km)
         const totalSecondsPerKm = (minInput * 60) + secInput;
 
         if (totalSecondsPerKm <= 0) {
@@ -164,17 +211,18 @@
             return;
         }
 
-        // Calculate split times based on proportions of a kilometer
-        const time400 = totalSecondsPerKm * (400 / 1000);
-        const time200 = totalSecondsPerKm * (200 / 1000);
-        const time100 = totalSecondsPerKm * (100 / 1000);
-        const time50 = totalSecondsPerKm * (50 / 1000);
+	CalculateAndDisplay(totalSecondsPerKm)
 
-        // Display formatted results
-        document.getElementById('res400').innerText = formatTime(time400);
-        document.getElementById('res200').innerText = formatTime(time200);
-        document.getElementById('res100').innerText = formatTime(time100);
-        document.getElementById('res50').innerText = formatTime(time50);
+    }
+    function convertSpeed() {
+        // Get input values
+        const minInput = document.getElementById('speed').value;
+
+        // Calculate total seconds per 1000 m (1 km)
+        const totalSecondsPerKm = (3600/ minInput);
+
+	CalculateAndDisplay(totalSecondsPerKm)
+
     }
 </script>
 
