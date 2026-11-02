@@ -1,1 +1,0 @@
-# everspaul.github.io
