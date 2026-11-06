@@ -239,7 +239,8 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             .then(characteristic => {
                 console.log("Found the NUM characteristic: ", characteristic.uuid);
 //                const data = new Uint8Array([d]);
-                return characteristic.writeValue(data);
+//                return characteristic.writeValue(data);
+                return characteristic.writeValue(d);
             })
             .then(() => {
                 latestValueSent.innerHTML = value;
