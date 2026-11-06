@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 Web BLE Application v2.0</h1>
+        <h1>ESP32 Web BLE Application v2.2</h1>
 	<h1><a href="https://randomnerdtutorials.com/esp32-web-bluetooth/">https://randomnerdtutorials.com/esp32-web-bluetooth/</a></h1>
     </div>
     <div class="content">
@@ -42,7 +42,8 @@
 
             <div class="card">
                 <h2>Count value (19b10003)</h2>
-			<input id="20k" type="number" maxlength="5" min="0" onchange="myFunction()" autofocus>
+		<input id="20k" type="number" maxlength="5" min="0" onchange="myFunction()" autofocus>
+                <p class="gray-label">max 255</p>
             </div>
 
         </div>
@@ -56,10 +57,6 @@
 knapp.innerText = "Klikk her!"; // 2. Endre teksten inni elementet
 knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")}); // 3. Gjør noe når brukeren klikker på elementet
 */
-
-
-
-
 
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
@@ -238,14 +235,28 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             bleServiceFound.getCharacteristic(numCharacteristic)
             .then(characteristic => {
                 console.log("Found the NUM characteristic: ", characteristic.uuid);
-//                const data = new Uint8Array([d]);
-//                return characteristic.writeValue(data);
-                return characteristic.writeValue(d);
+                const data = new Uint8Array([d]);
+                return characteristic.writeValue(data);
+
+//    const encoder = new TextEncoder();
+//    const dataBuffer = encoder.encode('1');
+
+    // 6. Write the data to the peripheral
+//    console.log('Writing string data...');
+    // Use writeValueWithResponse or writeValueWithoutResponse depending on your BLE spec
+//    return characteristic.writeValueWithResponse(dataBuffer);
+    
+//    console.log("Value written to NUMcharacteristic:", dataBuffer);
+  
+  
+
+
             })
             .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to NUM characteristic:", value);
+                latestValueSent.innerHTML = d;
+                console.log("Value written to NUMcharacteristic:", d);
             })
+
             .catch(error => {
                 console.error("Error writing to the LED characteristic: ", error);
             });
