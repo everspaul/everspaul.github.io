@@ -42,7 +42,7 @@
 
             <div class="card">
                 <h2>Count value (19b10003)</h2>
-			<input id="20k" type="number" maxlength="5" min="0" max="255" onchange="myFunction()" autofocus>
+			<input id="20k" type="number" maxlength="5" min="0" onchange="myFunction()" autofocus>
             </div>
 
         </div>
@@ -238,7 +238,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             bleServiceFound.getCharacteristic(numCharacteristic)
             .then(characteristic => {
                 console.log("Found the NUM characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([d]);
+//                const data = new Uint8Array([d]);
                 return characteristic.writeValue(data);
             })
             .then(() => {
