@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 Web BLE Application v2.3</h1>
+        <h1>ESP32 Web BLE Application v2.4</h1>
 	<h1><a href="https://randomnerdtutorials.com/esp32-web-bluetooth/">https://randomnerdtutorials.com/esp32-web-bluetooth/</a></h1>
     </div>
     <div class="content">
@@ -37,13 +37,18 @@
                 <button id="onButton" class="onButton">ON</button>
                 <button id="offButton" class="offButton">OFF</button>
 <!--                <button id="min-knapp" class="offButton">min-knapp</button>  //-->
-                <p class="gray-label">Last value sent (write1): <span id="valueSent"></span></p>
+<!--                <p class="gray-label">Last value sent (write1): <span id="valueSent"></span></p> -->
             </div>
 
             <div class="card">
                 <h2>Count value (19b10003)</h2>
 		<input id="20k" type="number" maxlength="5" min="0" onchange="myFunction()" autofocus>
             </div>
+
+            <div class="card">
+                <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+            </div>
+
 
         </div>
     </div>
