@@ -41,15 +41,14 @@
             </div>
 
             <div class="card">
-                <h2>Count value (19b10003)</h2>
-		<input id="20k" type="number" maxlength="5" min="0" onchange="myFunction()" autofocus>
+                <h2>Sending value (19b10003)</h2>
+		<h4>num <input id="20k" type="number" maxlength="5" min="0" onchange="myFunction()" autofocus></h4>
+		<h4>txt <input id="30k" type="text" maxlength="5" onchange="myFunction2()"></h4>
             </div>
 
             <div class="card">
                 <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
             </div>
-
-
         </div>
     </div>
 </body>
@@ -79,6 +78,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
     var sensorCharacteristic= '19b10001-e8f2-537e-4f6c-d104768a1214'; // randint
     var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
     var numCharacteristic = '19b10003-e8f2-537e-4f6c-d104768a1214';
+    var txtCharacteristic = '19b10004-e8f2-537e-4f6c-d104768a1214';
 
     //Global Variables to Handle Bluetooth
     var bleServer;
@@ -135,7 +135,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             return service.getCharacteristic(sensorCharacteristic);
         })
         .then(characteristic => {
-            console.log("RANDOM Characteristic discovered:", characteristic.uuid);
+            console.log("SENSOR Characteristic discovered:", characteristic.uuid);
             sensorCharacteristicFound = characteristic;
             characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicChange);
             characteristic.startNotifications();
@@ -235,7 +235,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
 	function myFunction() {
 		var d = Number(document.getElementById("20k").value);
 
-        if (bleServer && bleServer.connected) {
+        if (bleServer && bleServer.connected) { 			// NUM
             bleServiceFound.getCharacteristic(numCharacteristic)
             .then(characteristic => {
                 console.log("Found the NUM characteristic: ", characteristic.uuid);
@@ -243,20 +243,6 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
                 const encoder = new TextEncoder(); // Encode string to bytes
                 const data2 = encoder.encode(d); 
                 return characteristic.writeValue(data2);
-
-//    const encoder = new TextEncoder();
-//    const dataBuffer = encoder.encode('1');
-
-    // 6. Write the data to the peripheral
-//    console.log('Writing string data...');
-    // Use writeValueWithResponse or writeValueWithoutResponse depending on your BLE spec
-//    return characteristic.writeValueWithResponse(dataBuffer);
-    
-//    console.log("Value written to NUMcharacteristic:", dataBuffer);
-  
-  
-
-
             })
             .then(() => {
                 latestValueSent.innerHTML = d;
@@ -264,13 +250,37 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             })
 
             .catch(error => {
-                console.error("Error writing to the LED characteristic: ", error);
+                console.error("Error writing to the NUM characteristic: ", error);
             });
         } else {
             console.error ("Bluetooth is not connected. Cannot write to characteristic.")
             window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
         }
 
+	}
+
+	function myFunction2() {      					 // TXT
+		var d = String(document.getElementById("30k").value);
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(txtCharacteristic)
+            .then(characteristic => {
+                console.log("Found the TXT characteristic: ", characteristic.uuid);
+                const encoder = new TextEncoder(); // Encode string to bytes
+                const data2 = encoder.encode(d); 
+                console.log("This is data2: ", data2);
+                return characteristic.writeValue(data2);
+            })
+            .then(() => {
+                latestValueSent.innerHTML = d;
+                console.log("Value written to TXTcharacteristic:", d);
+            })
+           .catch(error => {
+                console.error("Error writing to the TXT characteristic: ", error);
+            });
+        } else {
+            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        }
 	}
 
 </script>
