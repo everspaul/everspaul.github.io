@@ -65,3 +65,32 @@ button {
 .reading {
     font-size: 1.8rem;
 }
+
+.fit-picture {
+  width: 250px;
+}
+/*
+Source - https://stackoverflow.com/a/63280980
+Posted by Boss GamerYT, modified by community. See post 'Timeline' for change history
+Retrieved 2026-11-10, License - CC BY-SA 4.0
+*/
+
+    .info:hover .tooltip {
+      color: red;
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 1s
+    }
+    .tooltip {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 1s
+    }
+    }
+    .tootip:hover {
+      visibility: visible
+    }
+
+.info {
+  cursor:  help
+}
