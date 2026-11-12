@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ESP32 Web BLE App</title>
+    <title>web_ble_2.html</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -48,6 +48,8 @@
 
             <div class="card">
                 <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+                <p class="reading"><span id="valueTemp">NaN</span></p>
+
             </div>
         </div>
     </div>
@@ -66,6 +68,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
     const onButton = document.getElementById('onButton');
     const offButton = document.getElementById('offButton');
     const retrievedValue = document.getElementById('valueContainer');
+    const retrievedTemp = document.getElementById('valueTemp');
 
     const latestValueSent = document.getElementById('valueSent');
     const bleStateContainer = document.getElementById('bleState');
@@ -79,11 +82,13 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
     var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
     var numCharacteristic = '19b10003-e8f2-537e-4f6c-d104768a1214';
     var txtCharacteristic = '19b10004-e8f2-537e-4f6c-d104768a1214';
+    var tmpCharacteristic = '19b10005-e8f2-537e-4f6c-d104768a1214';
 
     //Global Variables to Handle Bluetooth
     var bleServer;
     var bleServiceFound;
     var sensorCharacteristicFound;
+    var tmpCharacteristicFound;
 
     // Connect Button (search for BLE Devices only if BLE is available)
     connectButton.addEventListener('click', (event) => {
@@ -129,12 +134,26 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             console.log("Connected to GATT Server");
             return bleServer.getPrimaryService(bleService);
         })
+//        .then(service => {
+//            bleServiceFound = service;
+//            console.log("Service discovered:", service.uuid);
+//            return service.getCharacteristic(sensorCharacteristic);
+//        })
+
+	// Discover specific characteristics by passing an array of UUIDs
         .then(service => {
-            bleServiceFound = service;
-            console.log("Service discovered:", service.uuid);
-            return service.getCharacteristic(sensorCharacteristic);
-        })
+	  bleServiceFound = service;
+//	  return service.getCharacteristic(sensorCharacteristic);
+
+	  console.log("two charact.");
+	  service.discoverCharacteristics([sensorCharacteristic, tmpCharacteristic], (error, characteristics) => {
+	  const [charOne, charTwo] = characteristics;
+	  console.log("char. disc1.:", charOne, charTwo, characteristics);
+	})
+	})
+
         .then(characteristic => {
+            console.log("charact. disc2.:", characteristic);
             console.log("SENSOR Characteristic discovered:", characteristic.uuid);
             sensorCharacteristicFound = characteristic;
             characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicChange);
@@ -150,6 +169,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
             retrievedValue.innerHTML = decodedValue;            
 		timestampContainer1.innerHTML = getDateTime();
         })
+
         .catch(error => {
             console.log('Error: ', error);
         })
@@ -169,6 +189,16 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
         retrievedValue.innerHTML = newValueReceived;
         timestampContainer.innerHTML = getDateTime();
     }
+
+
+    function handleCharacteristicChange2(event){ 					// TEMP
+        const newValueReceived = new TextDecoder().decode(event.target.value);
+        console.log("Characteristic value changed: ", newValueReceived);
+	tmpValue.innerHTML = newValueReceived;
+        timestampContainer.innerHTML = getDateTime();
+    }
+
+
 
     function writeOnCharacteristic(value){
         if (bleServer && bleServer.connected) {
@@ -235,7 +265,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
 	function myFunction() {
 		var d = Number(document.getElementById("20k").value);
 
-        if (bleServer && bleServer.connected) { 			// NUM
+        if (bleServer && bleServer.connected) { 					// NUM
             bleServiceFound.getCharacteristic(numCharacteristic)
             .then(characteristic => {
                 console.log("Found the NUM characteristic: ", characteristic.uuid);
@@ -259,7 +289,7 @@ knapp.addEventListener("click", () => {alert("Du klikket på et DOM-element!")})
 
 	}
 
-	function myFunction2() {      					 // TXT
+	function myFunction2() {      							 // TXT
 		var d = String(document.getElementById("30k").value);
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(txtCharacteristic)

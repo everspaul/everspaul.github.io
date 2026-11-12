@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web_ble_3.html</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 500px; margin: 40px auto; padding: 0 20px; }
+    button { padding: 10px 16px; font-size: 16px; cursor: pointer; margin-right: 10px; }
+    .card { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin-top: 20px; }
+    .value { font-size: 24px; font-weight: bold; color: #0066cc; margin-top: 8px; }
+    #status { margin-top: 15px; color: #555; }
+  </style>
+</head>
+<body>
+
+  <h2>BLE Dual Notify Monitor</h2>
+  <button id="connectBtn">Connect to BLE Device</button>
+  <button id="disconnectBtn" disabled>Disconnect</button>
+  <div id="status">Status: Disconnected</div>
+
+  <div class="card">
+    <div>Characteristic 1 Value:</div>
+    <div id="val1" class="value">--</div>
+  </div>
+
+  <div class="card">
+    <div>Characteristic 2 Value:</div>
+    <div id="val2" class="value">--</div>
+  </div>
+
+  <script>
+    // 1. REPLACE THESE WITH YOUR DEVICE'S UUIDs (must be lowercase)
+    const SERVICE_UUID = '19b10000-e8f2-537e-4f6c-d104768a1214';
+    const CHAR_1_UUID  = '19b10001-e8f2-537e-4f6c-d104768a1214';
+    const CHAR_2_UUID  = '19b10005-e8f2-537e-4f6c-d104768a1214';
+
+//    let bleDevice = null;
+    let bleDevice = 'MPY ESP32'
+
+    const connectBtn = document.getElementById('connectBtn');
+    const disconnectBtn = document.getElementById('disconnectBtn');
+    const statusText = document.getElementById('status');
+    const val1Display = document.getElementById('val1');
+    const val2Display = document.getElementById('val2');
+
+    connectBtn.addEventListener('click', connectBLE);
+    disconnectBtn.addEventListener('click', disconnectBLE);
+
+    async function connectBLE() {
+      try {
+        statusText.textContent = 'Status: Scanning...';
+
+        // 2. Request the device and declare the service you want to access
+        bleDevice = await navigator.bluetooth.requestDevice({
+
+            filters: [{name: bleDevice}],
+
+
+//          acceptAllDevices: true,
+          optionalServices: [SERVICE_UUID]
+        });
+
+        bleDevice.addEventListener('gattserverdisconnected', onDisconnected);
+
+        statusText.textContent = 'Status: Connecting to GATT Server...';
+        const server = await bleDevice.gatt.connect();
+
+        // 3. Get the primary service
+        const service = await server.getPrimaryService(SERVICE_UUID);
+
+        // 4. Get both characteristics and start notifications
+        const char1 = await service.getCharacteristic(CHAR_1_UUID);
+        await char1.startNotifications();
+        char1.addEventListener('characteristicvaluechanged', handleChar1Data);
+
+        const char2 = await service.getCharacteristic(CHAR_2_UUID);
+        await char2.startNotifications();
+        char2.addEventListener('characteristicvaluechanged', handleChar2Data);
+
+        statusText.textContent = `Status: Connected to ${bleDevice.name || 'Device'}`;
+        connectBtn.disabled = true;
+        disconnectBtn.disabled = false;
+
+      } catch (error) {
+        console.error('BLE Error:', error);
+        statusText.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // 5. Parse incoming data for Characteristic 1 (Example: UTF-8 Text)
+    function handleChar1Data(event) {
+      const dataView = event.target.value;
+      const decoder = new TextDecoder('utf-8');
+      console.log("incoming", decoder.decode(dataView), CHAR_1_UUID);
+      val1Display.textContent = decoder.decode(dataView);
+    }
+
+    // 6. Parse incoming data for Characteristic 2 (Example: 1-byte Unsigned Integer)
+    function handleChar2Data(event) {
+      const dataView = event.target.value;
+
+//      console.log("incoming", decoder.decode(dataView));
+      const decoder = new TextDecoder('utf-8');
+      val2Display.textContent = decoder.decode(dataView);
+      console.log("incoming", decoder.decode(dataView), CHAR_2_UUID);
+
+//      const numberValue = dataView.getUint8(0); 
+//      val2Display.textContent = numberValue;
+
+    }
+
+    function disconnectBLE() {
+      if (bleDevice && bleDevice.gatt.connected) {
+        bleDevice.gatt.disconnect();
+      }
+    }
+
+    function onDisconnected() {
+      statusText.textContent = 'Status: Disconnected';
+      connectBtn.disabled = false;
+      disconnectBtn.disabled = true;
+      val1Display.textContent = '--';
+      val2Display.textContent = '--';
+    }
+  </script>
+</body>
+</html>
