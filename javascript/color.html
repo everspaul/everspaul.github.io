@@ -2,6 +2,16 @@
 <label for="color-picker">Choose a color:</label>
 <input type="color" id="color-picker" value="#18B867">
 
+<div id="swatches">
+  <button data-color="#ef4444" style="background: #ef4444;">Red</button>
+  <button data-color="#10b981" style="background: #10b981;">Green</button>
+  <button data-color="#3b82f6" style="background: #3b82f6;">Blue</button>
+</div>
+
+  
+
+
+
 <script>
   const picker = document.getElementById('color-picker');
 
@@ -10,4 +20,12 @@
     const selectedHex = event.target.value;
     document.body.style.backgroundColor = selectedHex;
   });
+
+  document.getElementById('swatches').addEventListener('click', (event) => {
+    const color = event.target.dataset.color;
+    if (color) {
+      console.log('Selected:', color);
+    }
+  });
+  
 </script>
