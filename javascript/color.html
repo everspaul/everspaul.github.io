@@ -1,1 +1,13 @@
 
+<label for="color-picker">Choose a color:</label>
+<input type="color" id="color-picker" value="#3b82f6">
+
+<script>
+  const picker = document.getElementById('color-picker');
+
+  // Fires continuously while dragging in the picker
+  picker.addEventListener('input', (event) => {
+    const selectedHex = event.target.value;
+    document.body.style.backgroundColor = selectedHex;
+  });
+</script>
