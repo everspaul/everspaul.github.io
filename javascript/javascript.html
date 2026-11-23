@@ -75,8 +75,8 @@ car.owner = "Johnson"; // You can add a property:
 
 <input type="color" id="color-picker" value="#18B867"><br>
 
-<div id="swatches">
-  <button data-color="#ef4444" style="background: #ef4444;" onclick="myFunction9()">Red</button>
+<div id="swatches" onclick="myFunction9()">
+  <button data-color="#ef4444" style="background: #ef4444;">Red</button>
   <button data-color="#10b981" style="background: #10b981;">Green</button>
   <button data-color="#3b82f6" style="background: #3b82f6;">Blue</button>
 </div>
@@ -151,16 +151,102 @@ function myFunction9() {
   picker.addEventListener('input', (event) => {
     const selectedHex = event.target.value;
 //    document.body.style.backgroundColor = selectedHex;
+      document.body.style.backgroundColor = "#FFFFFF"; 
   });
 
-  document.getElementById('swatches').addEventListener('click', (event) => {
+//  document.getElementById('swatches').addEventListener('click', (event) => {
     const color = event.target.dataset.color;
     if (color) {
       console.log('Selected:', color);
       document.body.style.backgroundColor = color; }
-  });
+//  });
 }
 
+// en attente:
+/*  https://www.w3schools.com/js/js_if.asp
+
+if (country == "USA" && age >= 16) {
+text = "You can drive!";
+} else if (condition2) {
+  // code to execute if the condition1 is false and condition2 is true
+} else {
+  // code to execute if the condition1 is false and condition2 is false
+}
+
+switch(expression) {
+  case x:
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+}
+
+// Loops
+
+exp1 is executed one time before the execution of the code block.
+exp2 defines the condition for executing the code block.
+exp3 is executed every time the code block has been executed.
+
+
+for (let i = 0; i < 5; i++) {
+  text += "The number is " + i + "<br>";
+}
+
+/* When break is encountered in a loop, the loop terminates immediately
+if (i === 3) { break; }
+The continue statement skips the current iteration in a loop.
+
+https://www.w3schools.com/js/js_string_templates.asp
+Variable Substitutions:
+let firstName = "John";
+let lastName = "Doe";
+
+let text = `Welcome ${firstName}, ${lastName}!`;
+
+Javascript strings are primitive and immutable: All string methods produce a new string without altering the original string.
+String length
+String charAt()
+String charCodeAt()
+String codePointAt()
+String concat()
+String at()
+String [ ]
+String slice()
+String substring()
+String substr()
+String toUpperCase()
+String toLowerCase()	String isWellFormed()
+String toWellFormed()
+String trim()
+String trimStart()
+String trimEnd()
+String padStart()
+String padEnd()
+String repeat()
+String replace()
+String replaceAll()
+String split()
+
+String Search Methods
+String indexOf()
+String lastIndexOf()
+String search()
+String match()	String matchAll()
+String includes()
+String startsWith()
+String endsWith()
+
+
+
+let price = 10;
+let VAT = 0.25;
+
+let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;
+
+*/ // en attente
 
 </script>
 </body></html>
